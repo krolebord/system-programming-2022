@@ -1,0 +1,25 @@
+alphabetSize: 4
+statesCount: 6
+initialState: 0
+finalStates:
+  - 3
+  - 4
+transitions:
+  - from: 0
+    condition: a
+    to: 1
+  - from: 1
+    condition: c
+    to: 1
+  - from: 1
+    condition: d
+    to: 3
+  - from: 0
+    condition: b
+    to: 2
+  - from: 2
+    condition: c
+    to: 2
+  - from: 2
+    condition: d
+    to: 4
