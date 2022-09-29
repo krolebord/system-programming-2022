@@ -43,7 +43,7 @@ public class NFA {
         }
     }
 
-    public static NFA createFromFile(File file) throws FileNotFoundException {
+    public static NFA createFromYaml(File file) throws FileNotFoundException {
         var nfa = new NFA();
 
         var inputStream = new FileInputStream(file);
@@ -70,6 +70,44 @@ public class NFA {
                     .computeIfAbsent(transitionProps.condition, k -> new HashSet<>());
 
             toStates.add(transitionProps.to);
+        }
+
+        return nfa;
+    }
+
+    public static NFA createFromTxt(File file) throws FileNotFoundException {
+        var nfa = new NFA();
+
+        var scanner = new Scanner(file);
+
+        var alphabetSize = scanner.nextInt();
+        for (char c = 'a'; c <= 'z' && c < 'a' + alphabetSize; c++) {
+            nfa.alphabet.add(c);
+        }
+
+        var statesCount = scanner.nextInt();
+        for (int i = 0; i < statesCount; i++) {
+            nfa.states.add(i);
+        }
+        nfa.initialState = scanner.nextInt();
+
+        var finalStatesCount = scanner.nextInt();
+        for (int i = 0; i < finalStatesCount; i++) {
+            nfa.finalStates.add(scanner.nextInt());
+        }
+
+        for (var state : nfa.states) {
+            nfa.transitions.put(state, new HashMap<>());
+        }
+
+        while (scanner.hasNext()) {
+            var from = scanner.nextInt();
+            var cond = scanner.next().charAt(0);
+            var to = scanner.nextInt();
+
+            var toStates = nfa.transitions.get(from)
+                    .computeIfAbsent(cond, k -> new HashSet<>());
+            toStates.add(to);
         }
 
         return nfa;

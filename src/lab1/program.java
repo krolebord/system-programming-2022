@@ -47,6 +47,8 @@ public class program {
         var input = new Scanner(inputFile);
         while (input.hasNext()) {
             var word = input.next();
+            if (word.length() > 30)
+                word = word.substring(0, 30);
 
             var currentLettersCount = countUniqueLetters(word);
 

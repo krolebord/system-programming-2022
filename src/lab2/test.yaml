@@ -13,7 +13,7 @@ transitions:
     to: 1
   - from: 1
     condition: d
-    to: 3
+    to: 2
   - from: 0
     condition: b
     to: 2

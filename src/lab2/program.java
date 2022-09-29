@@ -1,6 +1,7 @@
 package lab2;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -16,8 +17,9 @@ public class program {
         }
 
         var file = fileChooser.getSelectedFile();
+
         try {
-            var nfa = NFA.createFromFile(file);
+            var nfa = NFA.createFromTxt(file);
             System.out.println(file.getName());
             System.out.println();
 
