@@ -114,6 +114,7 @@ public class GoLexemes {
                         }
                         // Multi Line Comment
                         if (reader.peek() == '*') {
+                            reader.next();
                             while (reader.hasNext()) {
                                 if (reader.next() == '*' && reader.next() == '/') {
                                     return LexemeType.MultiLineComment;
