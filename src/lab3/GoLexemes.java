@@ -101,37 +101,28 @@ public class GoLexemes {
             // /
             new LexemePattern(
                     c -> c == '/',
-                    (bracket, r) -> LexemePattern.MatchPatterns(r, new LexemePattern[] {
-                            // Single Line Comment
-                            new LexemePattern(
-                                    c -> c == '/',
-                                    (c, reader) -> {
-                                        while (reader.hasNext()) {
-                                            if (Symbols.isNewLine(reader.next())) {
-                                                return LexemeType.SingleLineComment;
-                                            }
-                                        }
-                                        return LexemeType.Unknown;
-                                    }
-                            ),
-                            // Multi Line Comment
-                            new LexemePattern(
-                                    c -> c == '*',
-                                    (c, reader) -> {
-                                        while (reader.hasNext()) {
-                                            if (reader.next() == '*' && reader.next() == '/') {
-                                                return LexemeType.MultiLineComment;
-                                            }
-                                        }
-                                        return LexemeType.Unknown;
-                                    }
-                            ),
-                            // '/' Operator
-                            new LexemePattern(
-                                    c -> true,
-                                    (c, reader) -> LexemeType.Operator
-                            ),
-                    })
+                    (bracket, reader) -> {
+                        // Single Line Comment
+                        if (reader.peek() == '/') {
+                            reader.next();
+                            while (reader.hasNext()) {
+                                if (Symbols.isNewLine(reader.next())) {
+                                    return LexemeType.SingleLineComment;
+                                }
+                            }
+                            return LexemeType.Unknown;
+                        }
+                        // Multi Line Comment
+                        if (reader.peek() == '*') {
+                            while (reader.hasNext()) {
+                                if (reader.next() == '*' && reader.next() == '/') {
+                                    return LexemeType.MultiLineComment;
+                                }
+                            }
+                            return LexemeType.Unknown;
+                        }
+                        return LexemeType.Operator;
+                    }
             ),
             // Number Literal
             new LexemePattern(

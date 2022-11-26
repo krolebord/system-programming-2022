@@ -120,7 +120,7 @@ Identifier - pi
 Identifier - float32
 Operator - =
 NumberLiteral - 22.
-Operator - / 
+Operator - /
 NumberLiteral - 7
 Identifier - n
 Operator - :=
