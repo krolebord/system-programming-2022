@@ -136,8 +136,8 @@ Operator - ]
 Identifier - int
 Identifier - a5
 Operator - :=
-Operator - [..
-Operator - .
+Operator - [
+Operator - ...
 Operator - ]
 Identifier - int
 Operator - {
@@ -279,8 +279,8 @@ Operator - ,
 NumberLiteral - 8
 Operator - ,
 NumberLiteral - 9
-Operator - }..
-Operator - .
+Operator - }
+Operator - ...
 Operator - )
 Identifier - fmt
 Operator - .
@@ -1148,7 +1148,8 @@ Identifier - c
 Operator - )
 Keyword - go
 Identifier - inc
-Operator - (-
+Operator - (
+Operator - -
 NumberLiteral - 805
 Operator - ,
 Identifier - c
@@ -1156,8 +1157,8 @@ Operator - )
 Identifier - fmt
 Operator - .
 Identifier - Println
-Operator - (<
-Operator - -
+Operator - (
+Operator - <-
 Identifier - c
 Operator - ,
 Operator - <-

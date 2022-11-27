@@ -32,7 +32,7 @@ public class GoLexemes {
             add("var");
         }};
 
-        public static List<HashSet<Character>> operatorSymbols = Symbols.getOperatorSymbols(new String[] {
+        public static Symbols.OperatorCharacters operatorSymbols = Symbols.getOperatorsMap(new String[] {
                 "+=", "-=", "*=", "/=", "%=",
                 "&=", "|=", "^=", "<<=", ">>=", "&^=",
                 "&&", "||", "<-", "++", "--",
@@ -172,10 +172,12 @@ public class GoLexemes {
             ),
             // Operator
             new LexemePattern(
-                    c -> Constants.operatorSymbols.get(0).contains(c),
+                    c -> Constants.operatorSymbols.containsKey(c),
                     (c, reader) -> {
-                        for (int i = 1; i < Constants.operatorSymbols.size() && Constants.operatorSymbols.get(i).contains(reader.peek()); ++i) {
-                            reader.next();
+                        var curr = Constants.operatorSymbols.get(c);
+                        while (curr.containsKey(reader.peek())) {
+                            c = reader.next();
+                            curr = curr.get(c);
                         }
                         return LexemeType.Operator;
                     }
